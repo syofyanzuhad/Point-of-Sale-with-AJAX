@@ -20,13 +20,13 @@ class UsersTableSeeder extends Seeder
             //  'level' => 1
             // ],
             [
-             'name' => 'Kasir 1', 
-             'email' => 'kasir@gmail.com',
-             'password' => bcrypt('kasir'),
-             'foto' => 'user.png',
-             'level' => 2
+            'name' => 'Kasir 1', 
+            'email' => 'kasir@gmail.com',
+            'password' => bcrypt('kasir'),
+            'foto' => 'user.png',
+            'level' => 2
             ]
-          ));
+        ));
     
     }
 }
