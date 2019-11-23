@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{{ asset('adminLTE/dist/css/skins/skin-blue.min.css') }}">
   <link rel="stylesheet" href="{{ asset('adminLTE/plugins/datatables/dataTables.bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('adminLTE/plugins/datepicker/datepicker3.css') }}">
+  <link rel="shortcut icon" href=" {{asset('images/logo_kecil.png')}} " type="image/x-icon">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -119,7 +120,7 @@
   <!-- Footer -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      Aplikasi POS oleh: Rohi Abdulloh
+      Aplikasi POS by: Rohi Abdulloh | Upgraded Laravel 6.2 by : <a href="http://github.com/syofyanzuhad">syofyan_zuhad</a>
     </div>
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
