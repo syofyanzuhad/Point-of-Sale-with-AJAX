@@ -6,6 +6,7 @@ use Redirect;
 use App\Produk;
 use App\Member;
 use App\Penjualan;
+use App\PenjualanDetail;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -17,12 +18,12 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        return view('penjualan.index'); 
+        return view('penjualan.index');
     }
 
     public function listData()
     {
-    
+
         $penjualan = Penjualan::leftJoin('users', 'users.id', '=', 'penjualan.id_user')
         ->select('users.*', 'penjualan.*', 'penjualan.created_at as tanggal')
         ->orderBy('penjualan.id_penjualan', 'desc')
@@ -97,7 +98,7 @@ class PenjualanController extends Controller
             $row[] = "Rp. ".format_uang($list->sub_total);
             $data[] = $row;
         }
-    
+
         $output = array("data" => $data);
         return response()->json($output);
     }
