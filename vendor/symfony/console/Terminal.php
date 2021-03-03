@@ -66,6 +66,11 @@ class Terminal
             return self::$stty;
         }
 
+        // skip check if exec function is disabled
+        if (!\function_exists('exec')) {
+            return false;
+        }
+
         exec('stty 2>&1', $output, $exitcode);
 
         return self::$stty = 0 === $exitcode;
@@ -124,7 +129,7 @@ class Terminal
      *
      * @return int[]|null An array composed of the width and the height or null if it could not be parsed
      */
-    private static function getConsoleMode()
+    private static function getConsoleMode(): ?array
     {
         $info = self::readFromProcess('mode CON');
 
@@ -137,20 +142,13 @@ class Terminal
 
     /**
      * Runs and parses stty -a if it's available, suppressing any error output.
-     *
-     * @return string|null
      */
-    private static function getSttyColumns()
+    private static function getSttyColumns(): ?string
     {
         return self::readFromProcess('stty -a | grep columns');
     }
 
-    /**
-     * @param string $command
-     *
-     * @return string|null
-     */
-    private static function readFromProcess($command)
+    private static function readFromProcess(string $command): ?string
     {
         if (!\function_exists('proc_open')) {
             return null;

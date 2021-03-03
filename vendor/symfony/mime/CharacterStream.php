@@ -16,8 +16,6 @@ namespace Symfony\Component\Mime;
  * @author Xavier De Cock <xdecock@gmail.com>
  *
  * @internal
- *
- * @experimental in 4.3
  */
 final class CharacterStream
 {
@@ -99,10 +97,7 @@ final class CharacterStream
             }
         }
         if (\is_resource($input)) {
-            $blocks = 512;
-            if (stream_get_meta_data($input)['seekable'] ?? false) {
-                rewind($input);
-            }
+            $blocks = 16372;
             while (false !== $read = fread($input, $blocks)) {
                 $this->write($read);
             }
@@ -176,7 +171,7 @@ final class CharacterStream
         $this->dataSize = \strlen($this->data) - \strlen($ignored);
     }
 
-    private function getUtf8CharPositions(string $string, int $startOffset, &$ignoredChars): int
+    private function getUtf8CharPositions(string $string, int $startOffset, string &$ignoredChars): int
     {
         $strlen = \strlen($string);
         $charPos = \count($this->map['p']);

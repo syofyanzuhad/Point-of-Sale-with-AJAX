@@ -215,7 +215,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Generate a secure, absolute URL to the given path.
      *
      * @param  string  $path
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return string
      */
     public function secure($path, $parameters = [])
@@ -311,7 +311,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Create a signed route URL for a named route.
      *
      * @param  string  $name
-     * @param  array  $parameters
+     * @param  mixed  $parameters
      * @param  \DateTimeInterface|\DateInterval|int|null  $expiration
      * @param  bool  $absolute
      * @return string
@@ -405,7 +405,7 @@ class UrlGenerator implements UrlGeneratorContract
      * Get the URL to a named route.
      *
      * @param  string  $name
-     * @param  mixed   $parameters
+     * @param  mixed  $parameters
      * @param  bool  $absolute
      * @return string
      *
@@ -425,7 +425,7 @@ class UrlGenerator implements UrlGeneratorContract
      *
      * @param  \Illuminate\Routing\Route  $route
      * @param  mixed  $parameters
-     * @param  bool   $absolute
+     * @param  bool  $absolute
      * @return string
      *
      * @throws \Illuminate\Routing\Exceptions\UrlGenerationException
@@ -441,8 +441,8 @@ class UrlGenerator implements UrlGeneratorContract
      * Get the URL to a controller action.
      *
      * @param  string|array  $action
-     * @param  mixed   $parameters
-     * @param  bool    $absolute
+     * @param  mixed  $parameters
+     * @param  bool  $absolute
      * @return string
      *
      * @throws \InvalidArgumentException
@@ -565,7 +565,7 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function isValidUrl($path)
     {
-        if (! preg_match('~^(#|//|https?://|mailto:|tel:)~', $path)) {
+        if (! preg_match('~^(#|//|https?://|(mailto|tel|sms):)~', $path)) {
             return filter_var($path, FILTER_VALIDATE_URL) !== false;
         }
 
