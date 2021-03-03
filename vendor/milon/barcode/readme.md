@@ -1,6 +1,6 @@
 [![Packagist Downloads](https://img.shields.io/packagist/dt/milon/barcode.svg)](https://packagist.org/packages/milon/barcode) [![Stable version](https://img.shields.io/packagist/v/milon/barcode.svg)](https://packagist.org/packages/milon/barcode) [![License](https://img.shields.io/packagist/l/milon/barcode.svg)](https://packagist.org/packages/milon/barcode)
 
-This is a barcode generation package inspired by <https://github.com/tecnickcom/TCPDF>. Actually I use that package's underline classes for generating barcode. This package is just a wrapper of that package and adds compatibility with Laravel 5.
+This is a barcode generation package inspired by <https://github.com/tecnickcom/TCPDF>. Actually, I use that package's underline classes for generating barcodes. This package is just a wrapper of that package and adds compatibility with Laravel 5.
 
 I used the following classes of that package.
 
@@ -12,7 +12,7 @@ I used the following classes of that package.
 
 [Read More on TCPDF website](http://www.tcpdf.org)
 
-# This package is compatible with Laravel 5.2, 5.3 and 5.4
+# This package is compatible with Laravel `4.*` , `5.*` and `6.*`
 
 This package relies on [php-gd](http://php.net/manual/en/book.image.php) extension. So, make sure it is installed on your machine.
 
@@ -29,7 +29,7 @@ You can also edit your project's `composer.json` file to require `milon/barcode`
 ```
 "require": {
     ...
-    "milon/barcode": "^5.2"
+    "milon/barcode": "^6.0"
 }
 ```
 
@@ -146,6 +146,16 @@ echo DNS1D::getBarcodeHTML("4445645656", "PHARMA2T",3,33,"green");
 echo '<img src="' . DNS1D::getBarcodePNG("4", "C39+",3,33,array(1,1,1)) . '" alt="barcode"   />';
 echo DNS1D::getBarcodePNGPath("4445645656", "PHARMA2T",3,33,array(255,255,0));
 echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("4", "C39+",3,33,array(1,1,1)) . '" alt="barcode"   />';
+```
+
+## Show Text
+
+```php
+echo DNS1D::getBarcodeSVG("4445645656", "PHARMA2T",3,33,"green", true);
+echo DNS1D::getBarcodeHTML("4445645656", "PHARMA2T",3,33,"green", true);
+echo '<img src="' . DNS1D::getBarcodePNG("4", "C39+",3,33,array(1,1,1), true) . '" alt="barcode"   />';
+echo DNS1D::getBarcodePNGPath("4445645656", "PHARMA2T",3,33,array(255,255,0), true);
+echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG("4", "C39+",3,33,array(1,1,1), true) . '" alt="barcode"   />';
 ```
 
 ## 2D Barcodes
