@@ -22,6 +22,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.4
  */
 class RequestDataCollector extends DataCollector implements EventSubscriberInterface, LateDataCollectorInterface
 {
@@ -34,8 +36,10 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
 
     /**
      * {@inheritdoc}
+     *
+     * @param \Throwable|null $exception
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -49,12 +53,7 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
             }
         }
 
-        try {
-            $content = $request->getContent();
-        } catch (\LogicException $e) {
-            // the user already got the request content as a resource
-            $content = false;
-        }
+        $content = $request->getContent();
 
         $sessionMetadata = [];
         $sessionAttributes = [];
@@ -62,8 +61,8 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
         if ($request->hasSession()) {
             $session = $request->getSession();
             if ($session->isStarted()) {
-                $sessionMetadata['Created'] = date(DATE_RFC822, $session->getMetadataBag()->getCreated());
-                $sessionMetadata['Last used'] = date(DATE_RFC822, $session->getMetadataBag()->getLastUsed());
+                $sessionMetadata['Created'] = date(\DATE_RFC822, $session->getMetadataBag()->getCreated());
+                $sessionMetadata['Last used'] = date(\DATE_RFC822, $session->getMetadataBag()->getLastUsed());
                 $sessionMetadata['Lifetime'] = $session->getMetadataBag()->getLifetime();
                 $sessionAttributes = $session->all();
                 $flashes = $session->getFlashBag()->peekAll();
@@ -89,7 +88,7 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
             'format' => $request->getRequestFormat(),
             'content' => $content,
             'content_type' => $response->headers->get('Content-Type', 'text/html'),
-            'status_text' => isset(Response::$statusTexts[$statusCode]) ? Response::$statusTexts[$statusCode] : '',
+            'status_text' => Response::$statusTexts[$statusCode] ?? '',
             'status_code' => $statusCode,
             'request_query' => $request->query->all(),
             'request_request' => $request->request->all(),
@@ -259,7 +258,7 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
     {
         $decoded = json_decode($this->getContent());
 
-        return JSON_ERROR_NONE === json_last_error() ? json_encode($decoded, JSON_PRETTY_PRINT) : null;
+        return \JSON_ERROR_NONE === json_last_error() ? json_encode($decoded, \JSON_PRETTY_PRINT) : null;
     }
 
     public function getContentType()
@@ -340,12 +339,12 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
      */
     public function getRedirect()
     {
-        return isset($this->data['redirect']) ? $this->data['redirect'] : false;
+        return $this->data['redirect'] ?? false;
     }
 
     public function getForwardToken()
     {
-        return isset($this->data['forward_token']) ? $this->data['forward_token'] : null;
+        return $this->data['forward_token'] ?? null;
     }
 
     /**

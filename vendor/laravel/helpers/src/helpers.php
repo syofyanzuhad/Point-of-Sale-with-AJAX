@@ -120,7 +120,7 @@ if (! function_exists('array_get')) {
      * Get an item from an array using "dot" notation.
      *
      * @param  \ArrayAccess|array  $array
-     * @param  string  $key
+     * @param  string|int  $key
      * @param  mixed  $default
      * @return mixed
      */
@@ -199,7 +199,7 @@ if (! function_exists('array_prepend')) {
      */
     function array_prepend($array, $value, $key = null)
     {
-        return Arr::prepend($array, $value, $key);
+        return Arr::prepend(...func_get_args());
     }
 }
 
